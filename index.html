@@ -34,7 +34,37 @@
                 
             , zoom: 11
         });
-        // we will add more code here in the next steps
+        // load data
+        map.on('load', function () {
+            map.addSource('crime', {
+                type: 'geojson'
+                , data: 'data/bicycle-thefts.json'
+            });
+            // add heatmap layer here
+            map.addLayer({
+                id: 'crime-heat'
+                , type: 'heatmap'
+                , source: 'crime'
+                , maxzoom: 15
+                , paint: {
+                    'heatmap-weight': 0.1
+                    , 'heatmap-intensity': 1.1
+                    , 'heatmap-color': [ // assign color values be applied to points depending on their density; used ColorBrewer
+      'interpolate'
+      , ['linear']
+      , ['heatmap-density']
+      , 0, 'rgba(254,235,226,0)'
+      , 0.2, 'rgb(251,180,185)'
+      , 0.4, 'rgb(247,104,161)'
+      , 0.6, 'rgb(197,27,138)'
+      , 0.8, 'rgb(122,1,119)'
+    ]
+                    , 'heatmap-radius': 18
+                    , 'heatmap-opacity': 0.9
+                , }
+            });
+            // add circle layer here
+        });
     </script>
 </body>
 
