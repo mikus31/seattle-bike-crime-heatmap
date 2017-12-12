@@ -38,7 +38,7 @@
         map.on('load', function () {
             map.addSource('crime', {
                 type: 'geojson'
-                , data: 'data/bicycle-thefts.json'
+                , data: 'data/bicycle-thefts-update.geojson'
             });
             // add heatmap layer here
             map.addLayer({
@@ -98,6 +98,10 @@
       ]
                     }
                 }
+            });
+            // add functionality here
+            map.on('click', 'crime-point', function (e) {
+                new mapboxgl.Popup().setLngLat(e.features[0].geometry.coordinates).setHTML('Bicycle theft event on ' + e.features[0].properties.EVENT_DATE).addTo(map);
             });
         });
     </script>
