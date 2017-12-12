@@ -48,7 +48,12 @@
                 , maxzoom: 15
                 , paint: {
                     'heatmap-weight': 0.1
-                    , 'heatmap-intensity': 1.1
+                    , 'heatmap-intensity': {
+                        stops: [
+        [11, 1]
+        , [13, 3]
+      ]
+                    }
                     , 'heatmap-color': [ // assign color values be applied to points depending on their density; used ColorBrewer
       'interpolate'
       , ['linear']
@@ -59,8 +64,19 @@
       , 0.6, 'rgb(197,27,138)'
       , 0.8, 'rgb(122,1,119)'
     ]
-                    , 'heatmap-radius': 18
-                    , 'heatmap-opacity': 0.9
+                    , 'heatmap-radius': {
+                        stops: [
+        [11, 15]
+        , [13, 20]
+      ]
+                    }
+                    , 'heatmap-opacity': {
+                        default: 1
+                        , stops: [
+        [14, 1]
+        , [15, 0]
+      ]
+                    }
                 , }
             });
             // add circle layer here
