@@ -11,11 +11,16 @@
         body {
             margin: 0;
             padding: 0;
+            font-family: sans-serif;
+            color: #3d3d3d;
         }
-        
+        header {
+            height: 70px;
+            padding-left: 22px; 
+        }
         #map {
             position: absolute;
-            top: 0;
+            top: 70px;
             bottom: 0;
             width: 100%;
         }
@@ -23,6 +28,9 @@
 </head>
 
 <body>
+    <header>
+        <h1>Seattle Bike Crime</h1>
+    </header>
     <div id='map'></div>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoibWlrdXMzMSIsImEiOiJjajJqMTE5dWkwMXQyMndtcm00cXI1c3d1In0.i1zdIav3mjcxFiXk91NIPQ';
@@ -51,32 +59,30 @@
                         
                     , 'heatmap-intensity': { // increases intensity as user zooms in
                         stops: [
-        [11, 1]
-        , [13, 3]
-      ]
-                    }
-                    , 'heatmap-color': [ // assign color values be applied to points depending on their density; used ColorBrewer
-      'interpolate'
-      , ['linear']
-      , ['heatmap-density']
-      , 0, 'rgba(254,235,226,0)'
-      , 0.2, 'rgb(251,180,185)'
-      , 0.4, 'rgb(247,104,161)'
-      , 0.6, 'rgb(197,27,138)'
-      , 0.8, 'rgb(122,1,119)'
-    ]
-                    , 'heatmap-radius': { // increases size as user zooms in
+                        [11, 1]
+                        , [13, 3]
+                    ]
+                }, 'heatmap-color': [ // assign color values be applied to points depending on their density; used ColorBrewer
+                    'interpolate'
+                    , ['linear']
+                    , ['heatmap-density']
+                    , 0, 'rgba(254,235,226,0)'
+                    , 0.2, 'rgb(251,180,185)'
+                    , 0.4, 'rgb(247,104,161)'
+                    , 0.6, 'rgb(197,27,138)'
+                    , 0.8, 'rgb(122,1,119)'
+                ], 'heatmap-radius': { // increases size as user zooms in
                         stops: [
-        [11, 15]
-        , [13, 20]
-      ]
+                            [11, 15],       
+                            [13, 20]
+                    ]
                     }
                     , 'heatmap-opacity': { // removes heatmap when user zooms in to data level
                         default: 1
                         , stops: [
-        [14, 1]
-        , [15, 0]
-      ]
+                    [14, 1]
+                    , [15, 0]
+                ]
                     }
                 , }
             });
@@ -93,15 +99,17 @@
                     , 'circle-stroke-width': 1
                     , 'circle-opacity': {
                         stops: [
-        [14, 0]
-        , [15, 1]
-      ]
+                    [14, 0]
+                    , [15, 1]
+                ]
                     }
                 }
             });
             // add functionality here
             map.on('click', 'crime-point', function (e) {
-                new mapboxgl.Popup().setLngLat(e.features[0].geometry.coordinates).setHTML('Bicycle theft event on ' + e.features[0].properties.EVENT_DATE).addTo(map);
+                new mapboxgl.Popup().setLngLat(e.features[0].geometry.coordinates)
+                                    .setHTML('Bicycle theft event on ' + e.features[0].properties.EVENT_DATE)
+                                    .addTo(map);
             });
         });
     </script>
